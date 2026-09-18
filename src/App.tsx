@@ -46,7 +46,7 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.PROD ? '/sasiri-plantation-website-design/' : '/'}>
       <div className="min-h-screen bg-[#04140a] text-[#f7f4e9]">
         <Navbar
           invoiceItems={invoiceItems}

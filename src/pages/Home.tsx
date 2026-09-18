@@ -8,7 +8,7 @@ export default function Home() {
         {/* Background image */}
         <div className="absolute inset-0">
           <img
-            src="/images/hero.jpg"
+            src="images/hero.jpg"
             alt="Sasiri Plantation"
             className="w-full h-full object-cover"
           />

@@ -9,12 +9,11 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <img
-                src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHvC4yB_PhjHSq96n1raV2FnsjtvLu0W8j2q8rCW_7n1ZuafeDDeJfCi0Bras4jowep0z0fYlZR2o1yCgWQ91bx85WH953DFhnFTnRR9WAVetSTPTnNpgbuoafz6ZPDYrbnp8Mn=w408-h288-k-no"
-                className="h-12 object-contain"
-                alt="Sasiri Plantation Logo"
-              />
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-2xl">🌿</span>
+              <span className="font-display text-xl font-bold text-gradient-green">
+                Sasiri Plantation
+              </span>
             </div>
             <p className="text-green-100/60 max-w-md text-sm leading-relaxed">
               Rooted in Sri Lanka's misty central highlands, Sasiri Plantation grows, nurtures, and delivers premium plants, saplings, and greenery to homes and gardens across the island.

@@ -50,12 +50,11 @@ export default function Navbar({
               : 'bg-transparent border border-transparent'
           }`}
         >
-          <Link to="/" className="flex items-center gap-3 group">
-            <img
-              src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHvC4yB_PhjHSq96n1raV2FnsjtvLu0W8j2q8rCW_7n1ZuafeDDeJfCi0Bras4jowep0z0fYlZR2o1yCgWQ91bx85WH953DFhnFTnRR9WAVetSTPTnNpgbuoafz6ZPDYrbnp8Mn=w408-h288-k-no"
-              className="h-20 sm:h-24 lg:h-28 object-contain"
-              alt="Sasiri Plantation Logo"
-            />
+          <Link to="/" className="flex items-center gap-2 group">
+            <span className="text-2xl">🌿</span>
+            <span className="font-display text-xl sm:text-2xl font-bold text-gradient-green">
+              Sasiri Plantation
+            </span>
           </Link>
 
           {/* Desktop nav */}

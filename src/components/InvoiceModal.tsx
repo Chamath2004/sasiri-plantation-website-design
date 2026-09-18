@@ -59,7 +59,7 @@ export default function InvoiceModal({
             
             <div class="glass-green rounded-3xl p-6">
               <div class="text-center mb-6">
-                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHvC4yB_PhjHSq96n1raV2FnsjtvLu0W8j2q8rCW_7n1ZuafeDDeJfCi0Bras4jowep0z0fYlZR2o1yCgWQ91bx85WH953DFhnFTnRR9WAVetSTPTnNpgbuoafz6ZPDYrbnp8Mn=w408-h288-k-no" alt="Sasiri Plantation" class="h-20 mx-auto object-contain mb-4" />
+                <div class="text-4xl mb-2">🌿</div>
                 <h3 class="font-display text-2xl font-bold text-white mb-2">Sasiri Plantation</h3>
                 <p class="text-green-200/70 text-sm">Your Gateway to Green Living</p>
               </div>
@@ -123,7 +123,7 @@ export default function InvoiceModal({
             
             <div className="glass-green rounded-3xl p-6">
               <div className="text-center mb-6">
-                <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHvC4yB_PhjHSq96n1raV2FnsjtvLu0W8j2q8rCW_7n1ZuafeDDeJfCi0Bras4jowep0z0fYlZR2o1yCgWQ91bx85WH953DFhnFTnRR9WAVetSTPTnNpgbuoafz6ZPDYrbnp8Mn=w408-h288-k-no" alt="Sasiri Plantation" className="h-20 mx-auto object-contain mb-4" />
+                <div className="text-4xl mb-2">🌿</div>
                 <h3 className="font-display text-2xl font-bold text-white mb-2">Sasiri Plantation</h3>
                 <p className="text-green-200/70 text-sm">Your Gateway to Green Living</p>
               </div>

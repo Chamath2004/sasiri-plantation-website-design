@@ -52,7 +52,10 @@ export default function Navbar({
           }`}
         >
           <Link to="/" className="flex items-center gap-2 group">
-            <img src={logo} alt="Sasiri Plantation" className="block h-auto w-44 sm:w-56 brightness-[1.65] saturate-[0.85]" />
+            <span className="relative inline-block">
+              <img src={logo} alt="Sasiri Plantation" className="block h-auto w-44 sm:w-56 brightness-[1.65] saturate-[0.85]" />
+              <img src={logo} alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full brightness-0 invert" style={{ clipPath: "inset(80% 29% 11% 36%)" }} />
+            </span>
           </Link>
 
           {/* Desktop nav */}

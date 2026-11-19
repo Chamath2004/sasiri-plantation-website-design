@@ -52,7 +52,7 @@ export default function Navbar({
           }`}
         >
           <Link to="/" className="flex items-center gap-2 group">
-            <img src={logo} alt="Sasiri Plantation" className="block h-auto w-44 sm:w-56 rounded-lg bg-white p-2" />
+            <img src={logo} alt="Sasiri Plantation" className="block h-auto w-44 sm:w-56 brightness-[1.65] saturate-[0.85]" />
           </Link>
 
           {/* Desktop nav */}

@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <img src={logo} alt="Sasiri Plantation" className="block h-auto w-64 max-w-full rounded-lg bg-white p-2" />
+              <img src={logo} alt="Sasiri Plantation" className="block h-auto w-64 max-w-full brightness-[1.65] saturate-[0.85]" />
             </div>
             <p className="text-green-100/60 max-w-md text-sm leading-relaxed">
               Rooted in Sri Lanka's misty central highlands, Sasiri Plantation grows, nurtures, and delivers premium plants, saplings, and greenery to homes and gardens across the island.

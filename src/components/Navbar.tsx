@@ -1,3 +1,4 @@
+import logo from '../assets/sasiri-logo.png';
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -51,10 +52,7 @@ export default function Navbar({
           }`}
         >
           <Link to="/" className="flex items-center gap-2 group">
-            <span className="text-2xl">🌿</span>
-            <span className="font-display text-xl sm:text-2xl font-bold text-gradient-green">
-              Sasiri Plantation
-            </span>
+            <img src={logo} alt="Sasiri Plantation" className="block h-auto w-44 sm:w-56 rounded-lg bg-white p-2" />
           </Link>
 
           {/* Desktop nav */}

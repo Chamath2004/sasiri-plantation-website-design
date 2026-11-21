@@ -17,21 +17,6 @@ export const PLANTS: Plant[] = [
     quantity: 0, selectedQty: 0, light: '', water: '', level: '', description: '', tag: '',
   },
   {
-    id: 13, name: 'Na - නා', category: 'Native',
-    image: 'images/na-illustration.png', catalogOnly: true, imageKind: 'illustration',
-    quantity: 0, selectedQty: 0, light: '', water: '', level: '', description: '', tag: '',
-  },
-  {
-    id: 14, name: 'Kenda - කැන්ද', category: 'Native',
-    image: 'images/kenda-illustration.png', catalogOnly: true, imageKind: 'illustration',
-    quantity: 0, selectedQty: 0, light: '', water: '', level: '', description: '', tag: '',
-  },
-  {
-    id: 15, name: 'Sapu - සපු', category: 'Outdoor',
-    image: 'images/sapu-illustration.png', catalogOnly: true, imageKind: 'illustration',
-    quantity: 0, selectedQty: 0, light: '', water: '', level: '', description: '', tag: '',
-  },
-  {
     "id": 1,
     "name": "Pelen - පළෙන් (Bhesa ceylanica)",
     "category": "Native",

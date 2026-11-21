@@ -1,147 +1,31 @@
 import { useState } from 'react';
 
-interface InvoiceItem {
-  id: number;
-  name: string;
-  qty: number;
-}
+import { PLANTS } from '../data/plants';
+import AdminStock from '../components/AdminStock';
 
-type Plant = {
-  id: number;
-  name: string;
-  category: string;
-  image: string;
-  light: string;
-  water: string;
-  level: string;
-  description: string;
-  tag?: string;
-  quantity: number;
-  selectedQty: number;
-};
-
-const PLANTS: Plant[] = [
-  {
-    id: 1,
-    name: 'Monstera Deliciosa',
-    category: 'Indoor',
-    quantity: 100,
-    selectedQty: 0,
-    image: 'https://images.pexels.com/photos/4894424/pexels-photo-4894424.jpeg?auto=compress&cs=tinysrgb&w=800',
-    light: 'Bright Indirect',
-    water: 'Weekly',
-    level: 'Easy',
-    description: 'The iconic Swiss Cheese plant — a statement piece with dramatic split leaves.',
-    tag: 'Bestseller',
-  },
-  {
-    id: 2,
-    name: 'Red Rose Bush',
-    category: 'Flowering',
-    quantity: 100,
-    selectedQty: 0,
-    image: 'https://images.pexels.com/photos/9839793/pexels-photo-9839793.jpeg?auto=compress&cs=tinysrgb&w=800',
-    light: 'Full Sun',
-    water: '2-3 days',
-    level: 'Medium',
-    description: 'Classic red roses, perfect for gardens, borders, and sunny balconies.',
-  },
-  {
-    id: 3,
-    name: 'Snake Plant',
-    category: 'Indoor',
-    quantity: 100,
-    selectedQty: 0,
-    image: 'https://images.pexels.com/photos/8936404/pexels-photo-8936404.jpeg?auto=compress&cs=tinysrgb&w=800',
-    light: 'Low to Bright',
-    water: 'Bi-weekly',
-    level: 'Very Easy',
-    description: 'An air-purifying champion that thrives on neglect. Ideal for beginners.',
-    tag: 'Beginner Friendly',
-  },
-  {
-    id: 4,
-    name: 'Purple Orchid',
-    category: 'Flowering',
-    quantity: 100,
-    selectedQty: 0,
-    image: 'https://images.pexels.com/photos/20321708/pexels-photo-20321708.jpeg?auto=compress&cs=tinysrgb&w=800',
-    light: 'Indirect',
-    water: 'Weekly',
-    level: 'Medium',
-    description: 'Elegant purple blooms that last for months. A touch of sophistication.',
-  },
-  {
-    id: 5,
-    name: 'Bougainvillea',
-    category: 'Outdoor',
-    quantity: 100,
-    selectedQty: 0,
-    image: 'https://images.pexels.com/photos/31547449/pexels-photo-31547449.jpeg?auto=compress&cs=tinysrgb&w=800',
-    light: 'Full Sun',
-    water: 'Weekly',
-    level: 'Easy',
-    description: 'Vibrant tropical blooms that paint your garden in bold colors all year.',
-    tag: 'Garden Star',
-  },
-  {
-    id: 6,
-    name: 'Jasmine Plant',
-    category: 'Flowering',
-    quantity: 100,
-    selectedQty: 0,
-    image: 'https://images.pexels.com/photos/9543903/pexels-photo-9543903.jpeg?auto=compress&cs=tinysrgb&w=800',
-    light: 'Full Sun',
-    water: '2-3 days',
-    level: 'Easy',
-    description: 'Fragrant white blooms that fill your home with an unforgettable scent.',
-  },
-  {
-    id: 7,
-    name: 'Red Hibiscus',
-    category: 'Flowering',
-    quantity: 100,
-    selectedQty: 0,
-    image: 'https://images.pexels.com/photos/16873021/pexels-photo-16873021.jpeg?auto=compress&cs=tinysrgb&w=800',
-    light: 'Full Sun',
-    water: 'Daily',
-    level: 'Easy',
-    description: 'Bold, tropical blooms loved in Sri Lankan gardens and temple offerings.',
-  },
-  {
-    id: 8,
-    name: 'Fruit Tree Sapling',
-    category: 'Fruit',
-    quantity: 100,
-    selectedQty: 0,
-    image: 'https://images.pexels.com/photos/23158491/pexels-photo-23158491.jpeg?auto=compress&cs=tinysrgb&w=800',
-    light: 'Full Sun',
-    water: 'Regular',
-    level: 'Medium',
-    description: 'Healthy fruit saplings (Mango, Jack, Rambutan) — grow your own harvest.',
-    tag: 'Homegrown',
-  },
-];
-
-const CATEGORIES = ['All', 'Indoor', 'Outdoor', 'Flowering', 'Fruit'];
+const CATEGORIES = ['All', 'Native', 'Indoor', 'Outdoor', 'Flowering', 'Fruit'];
 
 export default function Plants({
-  addToInvoice
+  addToInvoice, stock, saveStock
 }: {
   addToInvoice: (plantId: number, qty: number) => void;
+  stock: Record<number, number>;
+  saveStock: (stock: Record<number, number>) => boolean;
 }) {
+  const [adminOpen, setAdminOpen] = useState(false);
   const [active, setActive] = useState('All');
   const [plantQuantities, setPlantQuantities] = useState<Record<number, number>>(
     PLANTS.reduce((acc, plant) => ({ ...acc, [plant.id]: plant.selectedQty }), {})
   );
-  const filtered = active === 'All' ? PLANTS : PLANTS.filter((p) => p.category === active);
+  const filtered = (active === 'All' ? PLANTS : PLANTS.filter((p) => p.category === active))
+    .map(plant => ({ ...plant, quantity: stock[plant.id] }));
 
   const updateQuantity = (plantId: number, change: number) => {
     const plant = PLANTS.find(p => p.id === plantId);
     if (plant) {
-      const currentQty = plantQuantities[plantId] || 0;
+      const currentQty = Math.min(plantQuantities[plantId] || 0, stock[plantId]);
       const newQty = currentQty + change;
-      if (newQty >= 0 && newQty <= plant.quantity) {
+      if (newQty >= 0 && newQty <= stock[plantId]) {
         setPlantQuantities(prev => ({ ...prev, [plantId]: newQty }));
       }
     }
@@ -153,8 +37,8 @@ export default function Plants({
       let newQty = parseInt(value);
       if (isNaN(newQty) || newQty < 0) {
         newQty = 0;
-      } else if (newQty > plant.quantity) {
-        newQty = plant.quantity;
+      } else if (newQty > stock[plantId]) {
+        newQty = stock[plantId];
       }
       setPlantQuantities(prev => ({ ...prev, [plantId]: newQty }));
     }
@@ -162,6 +46,7 @@ export default function Plants({
 
   return (
     <div className="relative">
+      {adminOpen && <AdminStock stock={stock} onSave={saveStock} onClose={() => setAdminOpen(false)} />}
       {/* HERO */}
       <section className="relative pt-36 pb-16 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-animated-gradient" />
@@ -207,6 +92,10 @@ export default function Plants({
       {/* GRID */}
       <section className="py-10 px-6">
         <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <h2 className="font-display text-2xl font-bold">Our Collection</h2>
+            <button onClick={() => setAdminOpen(true)} className="px-4 py-2 rounded-full glass text-sm font-semibold">Admin Stock</button>
+          </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filtered.map((p) => (
             <article
@@ -221,14 +110,7 @@ export default function Plants({
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#04140a]/70 via-transparent to-transparent" />
-                {p.tag && (
-                  <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-gradient-to-r from-green-400 to-green-600 text-[10px] uppercase tracking-widest font-bold text-white">
-                    {p.tag}
-                  </span>
-                )}
-                <span className="absolute top-4 right-4 px-3 py-1 rounded-full glass text-[10px] uppercase tracking-widest font-semibold text-green-100">
-                  {p.category}
-                </span>
+
               </div>
 
               <div className="p-5 flex flex-col flex-1">
@@ -236,21 +118,6 @@ export default function Plants({
                 <p className="text-green-100/60 text-sm leading-relaxed mb-4 flex-1">
                   {p.description}
                 </p>
-
-                <div className="grid grid-cols-3 gap-2 mb-4 text-center">
-                  <div className="glass rounded-xl p-2">
-                    <div className="text-[9px] uppercase text-green-200/60">Light</div>
-                    <div className="text-[11px] font-medium mt-0.5">{p.light}</div>
-                  </div>
-                  <div className="glass rounded-xl p-2">
-                    <div className="text-[9px] uppercase text-green-200/60">Water</div>
-                    <div className="text-[11px] font-medium mt-0.5">{p.water}</div>
-                  </div>
-                  <div className="glass rounded-xl p-2">
-                    <div className="text-[9px] uppercase text-green-200/60">Level</div>
-                    <div className="text-[11px] font-medium mt-0.5">{p.level}</div>
-                  </div>
-                </div>
 
                 <div className="pt-3 border-t border-green-200/10 space-y-3">
                   <div className="text-center">
@@ -268,7 +135,8 @@ export default function Plants({
                       type="number"
                       min="0"
                       max={p.quantity}
-                      value={plantQuantities[p.id] || 0}
+                      aria-label={`Quantity for ${p.name}`}
+                      value={Math.min(plantQuantities[p.id] || 0, p.quantity)}
                       onChange={(e) => setQuantityDirectly(p.id, e.target.value)}
                       className="w-20 h-10 rounded-full bg-white/10 border border-white/20 text-white text-center text-xl font-bold focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     />
@@ -280,13 +148,14 @@ export default function Plants({
                     </button>
                   </div>
                   <button
-                    onClick={() => addToInvoice(p.id, plantQuantities[p.id] || 0)}
+                    disabled={p.quantity === 0}
+                    onClick={() => addToInvoice(p.id, Math.min(plantQuantities[p.id] || 0, p.quantity))}
                     className="w-full py-3 rounded-full bg-gradient-to-r from-green-600 to-green-800 text-white font-semibold hover:scale-[1.02] transition-all shadow-lg shadow-green-900/40 flex items-center justify-center gap-2"
                   >
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M12 4v16m8-8H4" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                    Add to Invoice
+                    {p.quantity === 0 ? 'Out of Stock' : 'Add to Cart'}
                   </button>
                 </div>
               </div>

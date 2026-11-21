@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
+import { PLANTS } from './data/plants';
+import { loadStock, persistStock } from './utils/stock';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import InvoiceModal from './components/InvoiceModal';
@@ -13,24 +15,13 @@ interface InvoiceItem {
   qty: number;
 }
 
-// Plant data (same as Plants.tsx for reference)
-const PLANTS = [
-  { id: 1, name: 'Monstera Deliciosa' },
-  { id: 2, name: 'Red Rose Bush' },
-  { id: 3, name: 'Snake Plant' },
-  { id: 4, name: 'Purple Orchid' },
-  { id: 5, name: 'Bougainvillea' },
-  { id: 6, name: 'Jasmine Plant' },
-  { id: 7, name: 'Red Hibiscus' },
-  { id: 8, name: 'Fruit Tree Sapling' },
-];
-
 export default function App() {
+  const [stock, setStock] = useState(loadStock);
   const [invoiceItems, setInvoiceItems] = useState<InvoiceItem[]>([]);
   const [invoiceOpen, setInvoiceOpen] = useState(false);
 
   const addToInvoice = (plantId: number, qty: number) => {
-    if (qty <= 0) return;
+    if (!Number.isInteger(qty) || qty <= 0 || !stock[plantId]) return;
 
     const plant = PLANTS.find(p => p.id === plantId);
     if (!plant) return;
@@ -38,11 +29,18 @@ export default function App() {
     setInvoiceItems(prev => {
       const existing = prev.find(item => item.id === plantId);
       if (existing) {
-        return prev.map(item => item.id === plantId ? { ...item, qty } : item);
+        return prev.map(item => item.id === plantId ? { ...item, qty: Math.min(stock[plantId], item.qty + qty) } : item);
       } else {
-        return [...prev, { id: plantId, name: plant.name, qty }];
+        return [...prev, { id: plantId, name: plant.name, qty: Math.min(stock[plantId], qty) }];
       }
     });
+  };
+
+  const saveStock = (next: Record<number, number>) => {
+    if (!persistStock(next)) return false;
+    setStock(next);
+    setInvoiceItems(items => items.map(item => ({ ...item, qty: Math.min(item.qty, next[item.id]) })).filter(item => item.qty > 0));
+    return true;
   };
 
   return (
@@ -55,7 +53,7 @@ export default function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/plants" element={<Plants addToInvoice={addToInvoice} />} />
+            <Route path="/plants" element={<Plants addToInvoice={addToInvoice} stock={stock} saveStock={saveStock} />} />
             <Route path="/location" element={<Location />} />
           </Routes>
         </main>
@@ -64,6 +62,8 @@ export default function App() {
           isOpen={invoiceOpen}
           onClose={() => setInvoiceOpen(false)}
           invoiceItems={invoiceItems}
+          removeItem={id => setInvoiceItems(items => items.filter(item => item.id !== id))}
+          clearCart={() => setInvoiceItems([])}
         />
       </div>
     </BrowserRouter>

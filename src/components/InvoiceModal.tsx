@@ -7,11 +7,15 @@ interface InvoiceItem {
 export default function InvoiceModal({
   isOpen,
   onClose,
-  invoiceItems
+  invoiceItems,
+  removeItem,
+  clearCart
 }: {
   isOpen: boolean;
   onClose: () => void;
   invoiceItems: InvoiceItem[];
+  removeItem: (id: number) => void;
+  clearCart: () => void;
 }) {
   const today = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
@@ -115,6 +119,7 @@ export default function InvoiceModal({
               </div>
               <button
                 onClick={onClose}
+                aria-label="Close invoice"
                 className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-xl transition-all"
               >
                 &times;
@@ -142,7 +147,10 @@ export default function InvoiceModal({
                     invoiceItems.map((item) => (
                       <tr key={item.id}>
                         <td className="py-4 text-white">{item.name}</td>
-                        <td className="py-4 text-center text-green-300 font-bold">{item.qty}</td>
+                        <td className="py-4 text-center text-green-300 font-bold">
+                          {item.qty}
+                          <button onClick={() => removeItem(item.id)} aria-label={`Remove ${item.name}`} className="block mx-auto mt-2 text-xs text-green-100/70 underline font-normal">Remove</button>
+                        </td>
                       </tr>
                     ))
                   ) : (
@@ -156,6 +164,9 @@ export default function InvoiceModal({
               </table>
             </div>
 
+            {invoiceItems.length > 0 && (
+              <button onClick={clearCart} className="w-full rounded-full glass py-3 font-semibold">Clear Cart</button>
+            )}
             {invoiceItems.length > 0 && (
               <button
                 onClick={handlePrint}

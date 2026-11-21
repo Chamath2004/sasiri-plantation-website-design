@@ -13,6 +13,8 @@ npm run build
 ```
 
 The plant catalogue is in `src/data/plants.ts`. Local plant photos are served from `public/images/`.
+The five `*-illustration.png` assets are AI-generated leaf close-ups based on the supplied photographic style reference. Their cards are labelled "Illustrative image".
+These names-and-images-only entries use `catalogOnly: true`, so they show no stock quantities or ordering controls and are excluded from the stock editor. Their internal zero value is a placeholder, not a stock count.
 The original invoice logo remains in `src/assets/sasiri-logo.png`; its licence number is displayed in white by the header and footer.
 
 ## Stock editor

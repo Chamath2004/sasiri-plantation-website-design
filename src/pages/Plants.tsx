@@ -110,16 +110,19 @@ export default function Plants({
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#04140a]/70 via-transparent to-transparent" />
+                {p.imageKind === 'illustration' && (
+                  <span className="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[10px] font-medium text-white/90">Illustrative image</span>
+                )}
 
               </div>
 
               <div className="p-5 flex flex-col flex-1">
                 <h3 className="font-display text-xl font-bold mb-2">{p.name}</h3>
-                <p className="text-green-100/60 text-sm leading-relaxed mb-4 flex-1">
+                {p.description && <p className="text-green-100/60 text-sm leading-relaxed mb-4 flex-1">
                   {p.description}
-                </p>
+                </p>}
 
-                <div className="pt-3 border-t border-green-200/10 space-y-3">
+                {!p.catalogOnly && <div className="pt-3 border-t border-green-200/10 space-y-3">
                   <div className="text-center">
                     <span className="text-[10px] uppercase text-green-200/60">Available: </span>
                     <span className="font-display text-lg font-bold text-gradient-green">{p.quantity}</span>
@@ -157,7 +160,7 @@ export default function Plants({
                     </svg>
                     {p.quantity === 0 ? 'Out of Stock' : 'Add to Cart'}
                   </button>
-                </div>
+                </div>}
               </div>
             </article>
           ))}

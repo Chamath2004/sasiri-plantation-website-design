@@ -1,9 +1,36 @@
 export type Plant = {
   id: number; name: string; category: string; quantity: number; image: string;
   light: string; water: string; level: string; description: string; tag: string; selectedQty: number;
+  catalogOnly?: boolean;
+  imageKind?: 'illustration';
 };
 
 export const PLANTS: Plant[] = [
+  {
+    id: 11, name: 'Bombu - බෝඹු', category: 'Native',
+    image: 'images/bombu-illustration.png', catalogOnly: true, imageKind: 'illustration',
+    quantity: 0, selectedQty: 0, light: '', water: '', level: '', description: '', tag: '',
+  },
+  {
+    id: 12, name: 'Etamba - ඇටඹ', category: 'Native',
+    image: 'images/etamba-illustration.png', catalogOnly: true, imageKind: 'illustration',
+    quantity: 0, selectedQty: 0, light: '', water: '', level: '', description: '', tag: '',
+  },
+  {
+    id: 13, name: 'Na - නා', category: 'Native',
+    image: 'images/na-illustration.png', catalogOnly: true, imageKind: 'illustration',
+    quantity: 0, selectedQty: 0, light: '', water: '', level: '', description: '', tag: '',
+  },
+  {
+    id: 14, name: 'Kenda - කැන්ද', category: 'Native',
+    image: 'images/kenda-illustration.png', catalogOnly: true, imageKind: 'illustration',
+    quantity: 0, selectedQty: 0, light: '', water: '', level: '', description: '', tag: '',
+  },
+  {
+    id: 15, name: 'Sapu - සපු', category: 'Outdoor',
+    image: 'images/sapu-illustration.png', catalogOnly: true, imageKind: 'illustration',
+    quantity: 0, selectedQty: 0, light: '', water: '', level: '', description: '', tag: '',
+  },
   {
     "id": 1,
     "name": "Pelen - පළෙන් (Bhesa ceylanica)",

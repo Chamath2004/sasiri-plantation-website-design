@@ -57,7 +57,8 @@ export default function Location() {
               </div>
               <p className="text-green-100/80 leading-relaxed">
                 Sasiri Plantation<br />
-                Central Highlands<br />
+                D349B, Ihala Polgaswaththa<br />
+                Noori, Deraniyagala 71407<br />
                 Sri Lanka
               </p>
               <a
@@ -86,8 +87,8 @@ export default function Location() {
               <div className="space-y-3 text-green-100/80">
                 <div className="flex items-center gap-3">
                   <span className="text-xs uppercase tracking-wider text-green-200/60 w-16">Phone</span>
-                  <a href="tel:+94000000000" className="hover:text-green-300 transition">
-                    +94 77 000 0000
+                  <a href="tel:+94710437381" className="hover:text-green-300 transition">
+                    071 043 7381
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
@@ -99,7 +100,7 @@ export default function Location() {
                 <div className="flex items-center gap-3">
                   <span className="text-xs uppercase tracking-wider text-green-200/60 w-16">WhatsApp</span>
                   <a
-                    href="https://wa.me/94000000000"
+                    href="https://wa.me/94710437381"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-green-300 transition"
@@ -207,7 +208,7 @@ export default function Location() {
                 </svg>
               </a>
               <a
-                href="tel:+94000000000"
+                href="tel:+94710437381"
                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full glass text-white font-semibold hover:bg-white/10 transition-all"
               >
                 📞 Call Us

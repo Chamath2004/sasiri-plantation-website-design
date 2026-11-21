@@ -25,11 +25,12 @@ export default function Footer() {
             <h4 className="font-display text-lg font-semibold mb-4 text-green-200">Visit Us</h4>
             <ul className="space-y-2 text-sm text-green-100/60">
               <li>Sasiri Plantation</li>
-              <li>Central Highlands,</li>
+              <li>D349B, Ihala Polgaswaththa,</li>
+              <li>Noori, Deraniyagala 71407,</li>
               <li>Sri Lanka</li>
               <li className="pt-2">
-                <a href="tel:+94000000000" className="hover:text-green-300 transition">
-                  +94 77 000 0000
+                <a href="tel:+94710437381" className="hover:text-green-300 transition">
+                  071 043 7381
                 </a>
               </li>
               <li>

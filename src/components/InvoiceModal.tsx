@@ -1,3 +1,5 @@
+import InvoiceLogo, { printableInvoiceLogo } from './InvoiceLogo';
+
 interface InvoiceItem {
   id: number;
   name: string;
@@ -36,6 +38,7 @@ export default function InvoiceModal({
           <style>
             body { font-family: 'Inter', sans-serif; background: #04140a; }
             .font-display { font-family: 'Playfair Display', serif; }
+            .invoice-logo { filter: brightness(1.65) saturate(0.85); }
             .text-gradient-green {
               background: linear-gradient(135deg, #a5dba6 0%, #6fc475 50%, #44a04e 100%);
               -webkit-background-clip: text;
@@ -44,6 +47,8 @@ export default function InvoiceModal({
             }
             @media print {
               body { background: white; }
+              .invoice-logo { filter: none; }
+              .invoice-logo-licence { display: none; }
               .glass, .glass-green { background: white !important; box-shadow: none !important; }
               .bg-gradient-to-r { background: linear-gradient(135deg, #1e5a2d, #04140a) !important; }
               .text-white, .text-green-200 { color: #04140a !important; }
@@ -63,8 +68,7 @@ export default function InvoiceModal({
             
             <div class="glass-green rounded-3xl p-6">
               <div class="text-center mb-6">
-                <div class="text-4xl mb-2">🌿</div>
-                <h3 class="font-display text-2xl font-bold text-white mb-2">Sasiri Plantation</h3>
+                ${printableInvoiceLogo()}
                 <p class="text-green-200/70 text-sm">Your Gateway to Green Living</p>
               </div>
             </div>
@@ -97,10 +101,13 @@ export default function InvoiceModal({
         </html>
       `);
       printWindow.document.close();
-      printWindow.focus();
-      setTimeout(() => {
+      Promise.all(Array.from(printWindow.document.images).map(image => image.complete
+        ? Promise.resolve()
+        : new Promise<void>(resolve => { image.onload = () => resolve(); image.onerror = () => resolve(); })
+      )).then(() => {
+        printWindow.focus();
         printWindow.print();
-      }, 500);
+      });
     }
   };
 
@@ -128,8 +135,7 @@ export default function InvoiceModal({
             
             <div className="glass-green rounded-3xl p-6">
               <div className="text-center mb-6">
-                <div className="text-4xl mb-2">🌿</div>
-                <h3 className="font-display text-2xl font-bold text-white mb-2">Sasiri Plantation</h3>
+                <InvoiceLogo />
                 <p className="text-green-200/70 text-sm">Your Gateway to Green Living</p>
               </div>
             </div>
